@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Lab 05.01</title>
+    
+	<style>
+    
+        body { 
+            background-color: #555;
+            color: #555;
+            font-family: sans-serif;
+            text-align: center;
+        }
+
+        .container {
+            margin: 50px auto;
+            padding: 30px;
+            border-radius: 10px;
+            border: 3px solid #999;
+            width: 650px;
+            height: 65vh;
+            background-color: #ccc;
+        }
+
+        img {
+            width: 90px; 
+            float:left; 
+            padding-right:30px;
+        }
+
+    </style>
+
+</head>
+
+<body>
+
+    <div class="container">
+
+        <h1>Lab 05.01</h1>
+        <h2>Loops and Arrays</h2>
+
+    </div>
+    
+    <script>
+
+        // 1. Write a for loop that makes the following array: [3, 5, 7, 9, 11, 13, 15, 17, 19, 21]
+        let nums1 = [];
+        for(let i = 3; i <= 21; i+=2) {
+            nums1.push(i);
+        }
+        console.log(nums1);
+
+
+        // 2. Write a for loop that makes the following array: [100, 80, 60, 40, 20, 0, -20, -40, -60, -80, -100]
+        let nums2 = [];
+        for(let i = 100; i >= -100; i-=20) {
+            nums2.push(i);
+        }
+        console.log(nums2);
+
+        // 3. Given this array of numbers, use a for loop to add up 
+        // all the numbers. Save the total to a variable, sum.
+        const mix = [45, 54, 63, 72, 89, 91, 106];
+        let sum = 0;
+        for(let i = 0; i < mix.length; i++) {
+            sum += mix[i];
+        }
+        console.log('sum:', sum); // 520
+
+
+        // 4. Given this array of mixed numbers, 'number-like strings' and fruits, 
+        // find the sum of the numbers and 'number-like strings'. This requires you to ignore the fruits and to convert the 'number-like strings' 
+        // to actual numbers. Hint: Think Falsey!
+        const mixedBag = ["4", 5, "6", "apple", 7, "8", "kiwi", 9, 10, "plum"];
+        sum = 0;
+        for(let i = 0; i < mixedBag.length; i++) {
+            // console.log(Number(mixedBag[i])); // 4 5 6 NaN 7 8 NaN 9 10 NaN
+            if(Number(mixedBag[i])) { // truthy or falsey (NaN)
+                sum += Number(mixedBag[i]);
+            }
+        }
+
+        console.log('sum:', sum); // 49
+
+        // CHALLENGE / LAB: 
+// The HTML page has 5 card images, w the src hard-coded into the html: 
+/*
+    <img src="images/cards/Joker-1.png">
+    <img src="images/cards/8-of-Clubs.png">
+    <img src="images/cards/Joker-2.png">
+    <img src="images/cards/5-of-Diamonds.png">
+    <img src="images/cards/Joker-3.png">
+*/
+
+// Using JS, replace the 5 cards w the above: 
+/* Jack-of-Hearts, 
+Queen-of-Diamonds, 
+King-of-Clubs, 
+Ace-of-Spades,  
+10-of-Spades
+*/
+
+// What is the algorithm (problem solving approach)..?
+// HINT: requires skillset from the 3 day JS Frontend course
+// List of things we need for this:
+//   - For Loop
+//   - Arrays (of the card img objects/tags, card kinds, card suits)
+//   - Concatenation of img path
+
+//   i. - querySelectorAll Go get the 5 img tags and bring em into JS
+const cardImgs = document.querySelectorAll('img'); 
+// returns array of 5 img objs (NodeList)
+console.log('cardImgs:', cardImgs);
+console.log('first card img obj:', cardImgs[0]);
+
+//   ii. - kinds and suits arrays to store strings to make card file names:
+const kinds = ['Jack', 'Queen', 'King', 'Ace', '10'];
+const suits = ['Hearts', 'Diamonds', 'Clubs', 'Spades', 'Spades'];
+
+//   iii. - For Loop: loop the cardImgs arr
+for(let i = 0; i < suits.length; i++) {
+    //  iv. - Concat src of current img obj in cardImgs array:
+    cardImgs[i].src = 'images/cards/' + kinds[i] + '-of-' + suits[i] + '.png';
+}
+
+// LAB: Using what you learned in 3 day Frontend JS course, make a button
+// that when clicked calls a function that replaces the last card only 
+// -- the 10 -- with some other random digit card, like 5 of Diamonds, 3 of Hearts, 6 of Clubs, etc..
+// v. - get the button
+const btn = document.querySelector('button');
+// vi. - have the btn call the changeCard func:
+// btn.onclick = changeCard();
+btn.addEventListener('click', changeCard);
+
+// vii. - write function that changes last card to random 2-10 of random suit
+function changeCard() {
+    // viii. - generate rand int in 2-10 range
+    let r = Math.floor(Math.random() * 9 + 2);
+    // ix. -generate rand int from 0-3; this is for choosing suit from suits array:
+    let randSuit = Math.floor(Math.random() * 4);
+     // x. - set src of last card using random ints r and randSuit:
+    cardImgs[cardImgs.length-1].src = 'images/cards/' + r + '-of-' + suits[randSuit] + '.png';
+}
+
+        // END: Lab 05.01  
+        // NEXT: Lesson 05.02  
+
+    </script>
+    
+</body>
+
+</html>
